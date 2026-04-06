@@ -1,0 +1,602 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #1c1e21;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar .logo {
+    color: #1877f2;
+    font-size: 24px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: #1c1e21;
+    font-weight: 600;
+    margin-left: 20px;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #e4e6eb;
+    transition: 0.3s;
+}
+
+.navbar .nav-links a.logout {
+    background-color: #fce4e4;
+    color: #d93025;
+}
+
+.navbar .nav-links a:hover {
+    background-color: #d8dadf;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.feed-section {
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Post Creator */
+.create-post {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.create-post form {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-post textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 16px;
+    background: #f0f2f5;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.create-post button {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.create-post button:hover {
+    background-color: #166fe5;
+}
+
+/* Post Card */
+.post-card {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.post-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #1877f2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.post-info h4 {
+    font-size: 15px;
+    color: #050505;
+}
+
+.post-info span {
+    font-size: 12px;
+    color: #65676b;
+}
+
+.post-body {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.post-actions {
+    border-top: 1px solid #ced0d4;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.post-actions button {
+    background: transparent;
+    border: none;
+    color: #65676b;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px 20px;
+    border-radius: 5px;
+    transition: 0.2s;
+}
+
+.post-actions button:hover {
+    background-color: #f0f2f5;
+}
+
+/* Login Page Styles */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.login-left {
+    margin-right: 50px;
+    max-width: 400px;
+}
+
+.login-left h1 {
+    color: #1877f2;
+    font-size: 48px;
+}
+
+.login-left p {
+    font-size: 24px;
+    line-height: 1.2;
+}
+
+.login-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 350px;
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #dddfe2;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-box .create-btn {
+    background: #42b72a;
+    width: auto;
+    padding: 12px 20px;
+    margin-top: 15px;
+}
+
+
+/* React & Action Buttons */
+.post-actions {
+    border-top: 1px solid #ced0d4;
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.action-btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    color: #65676b;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.2s;
+    background: none;
+    border: none;
+    font-size: 15px;
+}
+
+.action-btn:hover { background-color: #f0f2f5; }
+
+/* Facebook Reaction Hover Box */
+.react-container { position: relative; }
+
+.react-box {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    background: white;
+    border-radius: 30px;
+    padding: 5px 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease-in-out;
+    transform: translateY(10px);
+    z-index: 10;
+}
+
+.react-container:hover .react-box {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.react-box span {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.react-box span:hover { transform: scale(1.3); }
+
+/* Comments Section */
+.comment-section {
+    display: none; /* Default e hidden thakbe */
+    margin-top: 15px;
+    border-top: 1px solid #ced0d4;
+    padding-top: 15px;
+}
+
+.comment-input-box { display: flex; align-items: center; margin-bottom: 15px; }
+.comment-input-box input {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #ccd0d5;
+    background: #f0f2f5;
+    outline: none;
+}
+.comment-input-box button {
+    background: transparent;
+    border: none;
+    color: #1877f2;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.single-comment { display: flex; margin-bottom: 10px; }
+.comment-text {
+    background: #f0f2f5;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 80%;
+}
+.comment-text strong { font-size: 13px; color: #050505; display: block; }
+.comment-text p { font-size: 14px; margin: 2px 0 0 0; }
+
+
+
+
+/* Active Reaction Colors */
+.react-active-like { color: #1877f2 !important; font-weight: bold; }
+.react-active-dislike { color: #d93025 !important; font-weight: bold; }
+.react-active-love { color: #e0245e !important; font-weight: bold; }
+.react-active-haha, .react-active-wow { color: #f7b125 !important; font-weight: bold; }
+.react-active-sad { color: #f5c33b !important; font-weight: bold; }
+
+/* Comment Image Styling */
+.comment-img { max-width: 200px; border-radius: 8px; margin-top: 5px; display: block; }
+.file-btn { cursor: pointer; color: #65676b; font-size: 20px; padding: 5px; }
+.file-btn:hover { color: #1877f2; }
+
+/* React List Modal */
+.react-list-box {
+    display: none; background: #fff; border: 1px solid #ddd; padding: 10px;
+    border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-top: 5px;
+    max-height: 150px; overflow-y: auto; font-size: 14px;
+}
+.react-item { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid #eee; }
+.react-icon { font-size: 18px; }
+
+
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex; background: white; margin-bottom: 15px; border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1); overflow: hidden;
+}
+.tab-btn {
+    flex: 1; text-align: center; padding: 15px; font-weight: 600; cursor: pointer;
+    color: #65676b; border-bottom: 3px solid transparent; transition: 0.3s;
+}
+.tab-btn:hover { background: #f0f2f5; }
+.tab-btn.active { color: #1877f2; border-bottom: 3px solid #1877f2; }
+
+/* Stories Section */
+.stories-container {
+    display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 15px;
+}
+.story-card {
+    min-width: 110px; height: 180px; border-radius: 10px; background: #ddd;
+    position: relative; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); cursor: pointer;
+}
+.story-card img { width: 100%; height: 100%; object-fit: cover; }
+.story-add { background: white; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:10px; font-weight:bold;}
+.story-add-btn { width:30px; height:30px; background:#1877f2; color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; position:absolute; bottom:30px; border:3px solid white;}
+.story-user { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 12px; font-weight: bold; text-shadow: 1px 1px 2px black; }
+
+/* Network / User Cards */
+.user-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.user-card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.user-card-avatar { width: 80px; height: 80px; background: #1877f2; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 10px; }
+.network-btn { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
+.btn-primary { background: #1877f2; color: white; }
+.btn-secondary { background: #e4e6eb; color: #050505; }
+
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f0f2f5; color: #050505; }
+
+/* ---------------- Navbar ---------------- */
+.navbar {
+    background-color: #ffffff; height: 56px; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 16px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: sticky; top: 0; z-index: 100;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.fb-logo { color: #0866ff; font-size: 40px; }
+.search-bar {
+    background-color: #f0f2f5; border-radius: 50px; padding: 10px 12px;
+    display: flex; align-items: center; gap: 8px; width: 240px;
+}
+.search-bar input { border: none; background: transparent; outline: none; font-size: 15px; width: 100%; }
+.search-bar i { color: #65676b; }
+
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.icon-btn {
+    width: 40px; height: 40px; border-radius: 50%; background-color: #e4e6eb;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 20px; color: #050505; cursor: pointer; transition: 0.2s;
+}
+.icon-btn:hover { background-color: #d8dadf; }
+.nav-profile-pic { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+/* ---------------- Main Layout ---------------- */
+.main-container { display: flex; justify-content: center; padding-top: 20px; }
+.feed-content { width: 100%; max-width: 590px; }
+
+/* ---------------- Create Post Card ---------------- */
+.card { background: #ffffff; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); margin-bottom: 16px; }
+.create-post { padding: 12px 16px 10px; }
+.create-top { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #e4e6eb; }
+.create-top img { width: 40px; height: 40px; border-radius: 50%; }
+.create-input {
+    flex: 1; background-color: #f0f2f5; border-radius: 20px; padding: 10px 12px;
+    color: #65676b; font-size: 17px; cursor: pointer; border: none; text-align: left;
+}
+.create-input:hover { background-color: #e4e6eb; }
+.create-bottom { display: flex; justify-content: space-between; padding-top: 8px; }
+.action-item {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    flex: 1; padding: 8px; border-radius: 8px; cursor: pointer; transition: 0.2s;
+    font-weight: 600; color: #65676b; font-size: 15px;
+}
+.action-item:hover { background-color: #f0f2f5; }
+
+/* ---------------- Stories Section ---------------- */
+.stories-wrapper { position: relative; margin-bottom: 16px; }
+.stories-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+.stories-scroll::-webkit-scrollbar { display: none; }
+.story-card {
+    width: 112px; height: 200px; border-radius: 10px; flex-shrink: 0;
+    position: relative; overflow: hidden; cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: #333;
+}
+.story-bg { width: 100%; height: 100%; object-fit: cover; transition: 0.2s; opacity: 0.9; }
+.story-card:hover .story-bg { transform: scale(1.02); }
+
+/* Create Story Card Special */
+.create-story-card { background: #fff; }
+.create-story-card .story-bg { height: 130px; }
+.create-story-bottom { height: 70px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+.add-btn {
+    width: 32px; height: 32px; background: #0866ff; color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; border: 4px solid #fff;
+    position: absolute; top: -16px; font-size: 18px;
+}
+.create-story-text { font-size: 13px; font-weight: 600; color: #050505; margin-top: 10px; }
+
+/* Normal Story Details */
+.story-profile {
+    position: absolute; top: 12px; left: 12px; width: 32px; height: 32px; border-radius: 50%;
+    border: 4px solid #0866ff;
+}
+.story-name { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 13px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
+
+/* ---------------- Single Post Card ---------------- */
+.post-header { display: flex; justify-content: space-between; padding: 12px 16px; }
+.post-user-info { display: flex; gap: 10px; align-items: center; }
+.post-user-info img { width: 40px; height: 40px; border-radius: 50%; }
+.post-user-details h4 { font-size: 15px; font-weight: 600; color: #050505; margin-bottom: 2px; }
+.post-time { font-size: 13px; color: #65676b; display: flex; align-items: center; gap: 4px; }
+.post-options { display: flex; gap: 5px; color: #65676b; font-size: 20px; }
+.post-options i { padding: 8px; border-radius: 50%; cursor: pointer; transition: 0.2s; }
+.post-options i:hover { background-color: #f0f2f5; }
+
+.post-text { padding: 0 16px 12px; font-size: 15px; color: #050505; line-height: 1.4; }
+.post-image { width: 100%; display: block; }
+.post-image img { width: 100%; height: auto; display: block; }
+
+/* Default avatar style if no image */
+.default-avatar { width: 40px; height: 40px; background: #e4e6eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #050505;}
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: #f0f2f5; color: #050505; }
+
+/* Navbar */
+.navbar {
+    background-color: #ffffff; height: 56px; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 16px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    position: sticky; top: 0; z-index: 100;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.fb-logo { color: #0866ff; font-size: 40px; }
+.search-bar { background-color: #f0f2f5; border-radius: 50px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; width: 240px; }
+.search-bar input { border: none; background: transparent; outline: none; font-size: 15px; width: 100%; }
+.search-bar i { color: #65676b; }
+
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; background-color: #e4e6eb; display: flex; justify-content: center; align-items: center; font-size: 20px; color: #050505; cursor: pointer; transition: 0.2s; position: relative;}
+.icon-btn:hover { background-color: #d8dadf; }
+.nav-profile-pic { width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+
+/* Notification Badge */
+.noti-badge { position: absolute; top: -5px; right: -5px; background: #e41e3f; color: white; font-size: 11px; font-weight: bold; padding: 2px 5px; border-radius: 10px; }
+
+/* Main Layout */
+.main-container { display: flex; justify-content: center; padding-top: 20px; }
+.feed-content { width: 100%; max-width: 590px; }
+.card { background: #ffffff; border-radius: 8px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); margin-bottom: 16px; }
+
+/* Create Post */
+.create-post { padding: 12px 16px 10px; }
+.create-top { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid #e4e6eb; }
+.create-input { flex: 1; background-color: #f0f2f5; border-radius: 20px; padding: 10px 12px; color: #65676b; font-size: 17px; cursor: pointer; border: none; outline: none; }
+.create-input:hover { background-color: #e4e6eb; }
+.create-bottom { display: flex; justify-content: space-between; padding-top: 8px; }
+.action-item { display: flex; align-items: center; justify-content: center; gap: 8px; flex: 1; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: 600; color: #65676b; font-size: 15px; }
+.action-item:hover { background-color: #f0f2f5; }
+
+/* Stories Section (Updated to match exact screenshot) */
+.stories-wrapper { position: relative; margin-bottom: 16px; }
+.stories-scroll { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; }
+.stories-scroll::-webkit-scrollbar { display: none; }
+
+.story-card { width: 112px; height: 200px; border-radius: 10px; flex-shrink: 0; position: relative; overflow: hidden; cursor: pointer; box-shadow: 0 1px 2px rgba(0,0,0,0.1); background: #fff; }
+.story-bg { width: 100%; height: 100%; object-fit: cover; transition: 0.2s; }
+.story-card:hover .story-bg { transform: scale(1.02); }
+
+/* Create Story Specific Design */
+.story-create-img { height: 130px; width: 100%; object-fit: cover; }
+.story-create-btn { width: 36px; height: 36px; background: #0866ff; border: 4px solid white; border-radius: 50%; position: absolute; top: 112px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; color: white; font-size: 20px; z-index: 2; }
+.story-create-text { margin-top: 25px; text-align: center; font-size: 13px; font-weight: 600; color: #050505; }
+
+/* Friend Story Design */
+.story-profile { position: absolute; top: 12px; left: 12px; width: 36px; height: 36px; border-radius: 50%; border: 4px solid #0866ff; z-index: 2;}
+.story-name { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 13px; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.8); z-index: 2; line-height: 1.2;}
+.story-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 40%); pointer-events: none; }
+.story-arrow { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); cursor: pointer; z-index: 10; font-size: 18px; color: #65676b; }
+
+/* Post Header */
+.post-header { display: flex; justify-content: space-between; padding: 12px 16px; margin-bottom: 5px;}
+.post-user-info { display: flex; gap: 10px; align-items: center; }
+.post-user-info img { width: 40px; height: 40px; border-radius: 50%; }
+.post-user-details h4 { font-size: 15px; font-weight: 600; color: #050505; margin-bottom: 2px; }
+.post-time { font-size: 13px; color: #65676b; display: flex; align-items: center; gap: 4px; }
+.post-options { display: flex; gap: 15px; color: #65676b; font-size: 18px; align-items: center;}
+.post-options i { cursor: pointer; }
+
+/* Post Content & Overlapping Badge */
+.post-text { padding: 0 16px 12px; font-size: 15px; color: #050505; }
+.post-image-container { position: relative; width: 100%; display: flex; justify-content: center;}
+.post-image-container img { width: 100%; height: auto; max-height: 500px; object-fit: cover; display: block; }
+.reaction-badge { position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); background: #0866ff; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px solid white; font-size: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.2);}
+
+/* Tab Buttons */
+.tab-nav { display: flex; background: white; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+.tab-btn { flex: 1; text-align: center; padding: 12px; font-weight: bold; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.3s; color: #65676b; }
+.tab-btn.active { color: #0866ff; border-bottom: 3px solid #0866ff; }
+.default-avatar { width: 40px; height: 40px; background: #e4e6eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #050505;}
+
+
+
+
+/* Notification Dropdown Styles */
+.noti-dropdown {
+    position: absolute; top: 50px; right: 0; width: 360px; background: #fff; 
+    border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+    display: none; flex-direction: column; z-index: 1000; overflow: hidden;
+    cursor: default; text-align: left;
+}
+.noti-header { padding: 15px 15px 5px; font-size: 20px; font-weight: 700; color: #050505; }
+.noti-body { max-height: 400px; overflow-y: auto; padding: 5px; }
+.noti-item { 
+    display: flex; gap: 12px; align-items: center; padding: 10px; 
+    border-radius: 8px; text-decoration: none; color: #050505; transition: 0.2s; 
+}
+.noti-item:hover { background: #f0f2f5; }
+.noti-item.unread { background: #e7f3ff; } /* Light blue for unread */
+.noti-item.unread:hover { background: #dbeaff; }
+.noti-icon { position: relative; }
+.noti-small-icon { 
+    position: absolute; bottom: -2px; right: -2px; width: 24px; height: 24px; 
+    border-radius: 50%; color: white; display: flex; justify-content: center; 
+    align-items: center; font-size: 12px; border: 2px solid white;
+}
+.noti-text-content { flex: 1; font-size: 15px; line-height: 1.3; }
+.noti-time { display: block; font-size: 13px; color: #0866ff; font-weight: 600; margin-top: 4px; }
+.noti-item:not(.unread) .noti-time { color: #65676b; font-weight: normal; }
