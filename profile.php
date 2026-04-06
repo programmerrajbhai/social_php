@@ -5,7 +5,7 @@ require 'db.php';
 if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
 $current_user_id = $_SESSION['user_id'];
 
-// Get Profile ID
+// Get Profile ID (If viewing someone else's profile)
 $profile_id = isset($_GET['id']) ? intval($_GET['id']) : $current_user_id;
 $is_own_profile = ($profile_id === $current_user_id);
 
@@ -65,21 +65,36 @@ $p_first_name = explode(' ', $user['name'])[0];
 $is_locked = isset($user['is_locked']) ? $user['is_locked'] : 0;
 
 // ==========================================
-// Check Friendship Status & Access Logic
+// Check Friendship Status
 // ==========================================
+$friend_status = 'none'; // none, pending_sent, pending_received, friends
 $is_friend = false;
+
 if (!$is_own_profile) {
-    $check_friend = $pdo->prepare("SELECT status FROM friendships WHERE ((sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)) AND status = 'accepted'");
-    $check_friend->execute([$current_user_id, $profile_id, $profile_id, $current_user_id]);
-    if ($check_friend->rowCount() > 0) {
-        $is_friend = true;
+    $f_stmt = $pdo->prepare("SELECT sender_id, status FROM friendships WHERE (sender_id = ? AND receiver_id = ?) OR (sender_id = ? AND receiver_id = ?)");
+    $f_stmt->execute([$current_user_id, $profile_id, $profile_id, $current_user_id]);
+    $friendship = $f_stmt->fetch();
+    
+    if ($friendship) {
+        if ($friendship['status'] == 'accepted') { 
+            $friend_status = 'friends'; 
+            $is_friend = true;
+        } 
+        else if ($friendship['sender_id'] == $current_user_id) { 
+            $friend_status = 'pending_sent'; 
+        } 
+        else { 
+            $friend_status = 'pending_received'; 
+        }
     }
 }
 
-// CAN VIEW LOGIC (The core of Profile Lock)
+// ==========================================
+// Check Access Logic (Profile Lock)
+// ==========================================
 $can_view_profile = true;
 if (!$is_own_profile && $is_locked == 1 && !$is_friend) {
-    $can_view_profile = false; // Lock the profile!
+    $can_view_profile = false; // Lock the profile from strangers!
 }
 
 // Friend Count
@@ -120,13 +135,10 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
         a { text-decoration: none; color: inherit; }
         .main-app-container { max-width: 600px; margin: 0 auto; background-color: #18191a; min-height: 100vh; position: relative; }
         
-        /* Top Nav */
         .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; background-color: #242526; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #3a3b3c;}
         .nav-circle-btn { width: 36px; height: 36px; border-radius: 50%; background-color: #3a3b3c; display: flex; justify-content: center; align-items: center; font-size: 18px; color: #e4e6eb; cursor: pointer;}
         
-        /* Profile Header */
         .cover-photo { width: 100%; height: 220px; background: #3a3b3c; background-image: url('<?php echo $cover; ?>'); background-size: cover; background-position: center; position: relative; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;}
-        
         .profile-pic-container { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); width: 160px; height: 160px; border-radius: 50%; border: 4px solid #18191a; background: #3a3b3c; display: flex; justify-content: center; align-items: center; overflow: hidden; font-size: 70px; font-weight: bold; color: #fff; z-index: 2;}
         .profile-pic-container img { width: 100%; height: 100%; object-fit: cover; }
         
@@ -135,36 +147,31 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
         .profile-friends-count { font-size: 16px; font-weight: 600; color: #b0b3b8; margin-bottom: 10px;}
         .profile-bio { font-size: 15px; color: #e4e6eb; margin-bottom: 15px; line-height: 1.4; padding: 0 10px;}
         
-        /* Lock Badge */
         .lock-badge { background: #2d88ff; color: white; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 13px; font-weight: bold; margin-bottom: 10px;}
 
-        /* Actions */
         .profile-actions { display: flex; gap: 10px; margin-top: 15px; justify-content: center;}
         .btn-primary { flex: 1; max-width: 200px; background: #2d88ff; color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 15px; cursor: pointer; display:flex; justify-content:center; align-items:center; gap:8px;}
         .btn-secondary { flex: 1; max-width: 200px; background: #3a3b3c; color: #e4e6eb; border: none; padding: 10px; border-radius: 6px; font-weight: 600; font-size: 15px; cursor: pointer; display:flex; justify-content:center; align-items:center; gap:8px;}
         
-        /* Intro Details */
         .intro-box { background: #242526; padding: 16px; margin-top: 8px; border-radius: 8px;}
         .intro-item { display: flex; gap: 12px; align-items: center; color: #e4e6eb; font-size: 15px; margin-bottom: 15px;}
         .intro-item i { color: #8c939d; font-size: 20px; width: 24px; text-align: center;}
 
-        /* Locked Screen Notice */
         .locked-screen { background: #242526; padding: 30px 20px; margin-top: 8px; border-radius: 8px; text-align: center; border: 1px solid #3a3b3c;}
         .locked-screen i { font-size: 45px; color: #2d88ff; margin-bottom: 15px; background: rgba(45, 136, 255, 0.1); padding: 15px; border-radius: 50%;}
         .locked-screen h3 { margin: 0 0 10px 0; color: #e4e6eb; font-size: 18px;}
         .locked-screen p { margin: 0; color: #b0b3b8; font-size: 15px; line-height: 1.4;}
         
-        /* Feed Cards */
         .card { background-color: #242526; margin-top: 8px; padding: 12px 0; }
         .post-header { display: flex; justify-content: space-between; align-items: center; padding: 0 16px 10px; }
         .post-text { padding: 0 16px 12px; font-size: 15px; line-height: 1.4;}
         .post-media-container img, .post-media-container video { width: 100%; max-height: 600px; object-fit: cover; display: block; }
         .interaction-stats { display: flex; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #3a3b3c; color: #b0b3b8; font-size: 14px; }
-        .action-buttons { display: flex; justify-content: space-around; padding: 4px 16px; border-bottom: 1px solid #3a3b3c; }
+        .action-buttons { display: flex; justify-content: space-around; padding: 4px 16px; }
         .action-btn { flex: 1; display: flex; justify-content: center; align-items: center; gap: 6px; padding: 8px 0; background: transparent; border: none; color: #b0b3b8; font-size: 15px; font-weight: 600; cursor: pointer; border-radius: 4px; }
         .react-active-like { color: #2d88ff !important; }
 
-        /* Edit Profile Modal */
+        /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: none; justify-content: center; align-items: center; padding: 10px; }
         .modal-content { background: #242526; width: 100%; max-width: 500px; border-radius: 8px; overflow: hidden; border: 1px solid #3a3b3c;}
         .modal-header { padding: 16px; border-bottom: 1px solid #3a3b3c; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 20px;}
@@ -213,7 +220,6 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
             <div class="profile-actions">
                 <?php if($is_own_profile): ?>
                     <button class="btn-primary" onclick="openModal()"><i class="fa-solid fa-pen"></i> Edit Profile</button>
-                    
                     <form method="POST" style="flex:1; max-width:200px;">
                         <input type="hidden" name="action" value="toggle_lock">
                         <input type="hidden" name="current_lock_status" value="<?php echo $is_locked; ?>">
@@ -226,8 +232,21 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
                         </button>
                     </form>
                 <?php else: ?>
-                    <button class="btn-primary"><i class="fa-solid fa-user-plus"></i> Add Friend</button>
-                    <button class="btn-secondary"><i class="fa-brands fa-facebook-messenger"></i> Message</button>
+                    <?php if($friend_status == 'friends'): ?>
+                        <button class="btn-secondary"><i class="fa-solid fa-user-check"></i> Friends</button>
+                    <?php elseif($friend_status == 'pending_sent'): ?>
+                        <button class="btn-secondary"><i class="fa-solid fa-user-clock"></i> Requested</button>
+                    <?php elseif($friend_status == 'pending_received'): ?>
+                        <button class="btn-primary" onclick="acceptRequest(<?php echo $profile_id; ?>)">Accept Request</button>
+                    <?php else: ?>
+                        <button class="btn-primary" id="add-friend-btn" onclick="sendFriendRequest(<?php echo $profile_id; ?>)">
+                            <i class="fa-solid fa-user-plus"></i> Add Friend
+                        </button>
+                    <?php endif; ?>
+
+                    <button class="btn-secondary" onclick="window.location.href='chat.php?id=<?php echo $profile_id; ?>'">
+                        <i class="fa-brands fa-facebook-messenger"></i> Message
+                    </button>
                 <?php endif; ?>
                 <button class="btn-secondary" style="flex:0; padding:10px 15px;"><i class="fa-solid fa-ellipsis"></i></button>
             </div>
@@ -317,6 +336,7 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
             <?php endif; ?>
 
         <?php endif; ?>
+
         <?php if($is_own_profile): ?>
         <div class="modal-overlay" id="editModal">
             <div class="modal-content">
@@ -408,6 +428,33 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
             });
         }
 
+        // Add Friend AJAX
+        function sendFriendRequest(targetId) {
+            let formData = new FormData();
+            formData.append('action', 'send_request');
+            formData.append('target_id', targetId);
+
+            fetch('ajax_network.php', { method: 'POST', body: formData })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status === 'request_sent') {
+                    let btn = document.getElementById('add-friend-btn');
+                    btn.innerHTML = '<i class="fa-solid fa-user-clock"></i> Requested';
+                    btn.className = 'btn-secondary'; // Change to gray style
+                    btn.onclick = null; // Disable clicking again
+                }
+            });
+        }
+
+        // Accept Request AJAX
+        function acceptRequest(targetId) {
+            let formData = new FormData();
+            formData.append('action', 'accept_request');
+            formData.append('target_id', targetId);
+            fetch('ajax_network.php', { method: 'POST', body: formData })
+            .then(() => location.reload());
+        }
+
         // Modal Controls
         function openModal() { document.getElementById('editModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('editModal').style.display = 'none'; }
@@ -421,10 +468,7 @@ $react_icons = ['like'=>'👍 Like', 'dislike'=>'👎 Dislike', 'love'=>'❤️ 
                     const imgElement = document.getElementById(imgId);
                     imgElement.src = e.target.result;
                     imgElement.style.display = 'block';
-                    
-                    if(fallbackId) {
-                        document.getElementById(fallbackId).style.display = 'none';
-                    }
+                    if(fallbackId) { document.getElementById(fallbackId).style.display = 'none'; }
                 }
                 reader.readAsDataURL(input.files[0]);
             }
